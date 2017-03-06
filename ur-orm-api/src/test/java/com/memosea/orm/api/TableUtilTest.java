@@ -24,19 +24,19 @@ public class TableUtilTest {
         return connection;
     }
     @Test
-    public void query(){
+    public void query() throws SQLException {
         System.out.println(TableUtil.connect(getConnection()).query("select * from token where id = ?",0));
     }
     @Test
-    public void save(){
+    public void save() throws SQLException {
         System.out.println(TableUtil.connect(getConnection()).save("insert into token values(null,?,?,null),(null,?,?,null),(null,?,?,null)","123",123,"123",123,"123",123));
     }
     @Test
-    public void update(){
+    public void update() throws SQLException {
         TableUtil.connect(getConnection()).update("update token set access_token = ? where id = ?","10007",10);
     }
     @Test
-    public void delete(){
+    public void delete() throws SQLException {
         TableUtil.connect(getConnection()).delete("delete from token where id = ?",10);
     }
 }

@@ -18,7 +18,7 @@ public class TableUtil {
     public static TableUtil connect(Connection conn){
         return new TableUtil(conn);
     }
-    public List<Map<String,Object>> query(String sql, Object... params){
+    public List<Map<String,Object>> query(String sql, Object... params) throws SQLException {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             if(params != null && params.length > 0){
@@ -41,7 +41,13 @@ public class TableUtil {
                 return result;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -52,7 +58,7 @@ public class TableUtil {
      * @param params
      * @return lastInsertId
      */
-    public Long save(String sql, Object... params){
+    public Long save(String sql, Object... params) throws SQLException {
         Long lastId = null;
         try {
             PreparedStatement ps = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -67,12 +73,18 @@ public class TableUtil {
                 lastId = rs.getLong(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return lastId;
     }
 
-    public void update(String sql, Object... params){
+    public void update(String sql, Object... params) throws SQLException {
         Long lastId = null;
         try {
             PreparedStatement ps = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -83,11 +95,17 @@ public class TableUtil {
             }
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void delete(String sql, Object... params){
+    public void delete(String sql, Object... params) throws SQLException {
         Long lastId = null;
         try {
             PreparedStatement ps = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -98,7 +116,13 @@ public class TableUtil {
             }
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
