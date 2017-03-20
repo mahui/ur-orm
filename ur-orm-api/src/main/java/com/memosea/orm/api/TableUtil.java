@@ -79,9 +79,6 @@ public class TableUtil {
                 }
             }
             ResultSet rs = ps.executeQuery();
-            int resultSize = rs.getFetchSize();
-            System.out.println(resultSize);
-//            if(resultSize > 0){
             ResultSetMetaData rsmd = rs.getMetaData();
             List<Map<String,Object>> result = new ArrayList<Map<String, Object>>();
             while (rs.next()){
@@ -92,10 +89,17 @@ public class TableUtil {
                 result.add(map);
             }
             return result;
-//            }
         } catch (SQLException e) {
             throw e;
         }
+    }
+
+    public <T>T queryOne(String sql, Class clazz, Object... params) throws Exception {
+        List<T> result = query(sql, clazz, params);
+        if(result.size() > 0){
+            return result.get(0);
+        }
+        return null;
     }
 
 

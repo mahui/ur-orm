@@ -8,16 +8,16 @@ import java.util.Date;
 public class Token {
 
 
-    private long id;
+    private Long id;
     private String accessToken;
-    private int expiresIn;
+    private Integer expiresIn;
     private Date createTime;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -29,11 +29,11 @@ public class Token {
         this.accessToken = accessToken;
     }
 
-    public int getExpiresIn() {
+    public Integer getExpiresIn() {
         return expiresIn;
     }
 
-    public void setExpiresIn(int expiresIn) {
+    public void setExpiresIn(Integer expiresIn) {
         this.expiresIn = expiresIn;
     }
 
